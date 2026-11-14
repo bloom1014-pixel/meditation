@@ -109,7 +109,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold bg-gradient-to-r from-cyan-300 via-amber-200 to-purple-300 bg-clip-text text-transparent flex items-center gap-2">
-                        중학생 마음 쉼터 & 명상 Studio
+                        마음 쉼터 - 중학생 힐링 명상 Studio
                         <span class="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-normal border border-cyan-400/30">Student Healing</span>
                     </h1>
                     <p class="text-xs text-slate-300">4-7-8 호흡, 싱잉볼, 자세 안내 및 7대 차크라 통합 스튜디오</p>
@@ -292,7 +292,7 @@
         </section>
 
         <!-- ========================================== -->
-        <!-- TAB 2: DETAILED CHAKRAS & NADIS FROM FILE  -->
+        <!-- TAB 2: DETAILED CHAKRAS & NADIS            -->
         <!-- ========================================== -->
         <section id="tab-chakra" class="space-y-8 hidden animate-fadeIn">
             
@@ -329,7 +329,7 @@
                 </div>
             </div>
 
-            <!-- Interactive HTML5 Canvas Visualizer (Matching User Image) -->
+            <!-- Interactive HTML5 Canvas Visualizer -->
             <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-purple-500/30 space-y-6">
                 <div class="w-full flex items-center justify-between border-b border-white/10 pb-4">
                     <div class="flex items-center space-x-2">
@@ -341,12 +341,10 @@
                     </div>
                 </div>
 
-                <!-- Canvas Container -->
                 <div class="relative w-full h-[480px] flex items-center justify-center bg-cosmic-900/90 rounded-2xl border border-cyan-500/20 overflow-hidden">
                     <canvas id="nadisCanvas" class="w-full h-full cursor-pointer"></canvas>
                 </div>
 
-                <!-- Dynamic Chakra Info Box -->
                 <div id="chakra-info-box" class="w-full p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between transition-all">
                     <div class="flex items-center space-x-3">
                         <div id="chakra-color-dot" class="w-5 h-5 rounded-full bg-cyan-400 shadow-md"></div>
@@ -359,7 +357,7 @@
                 </div>
             </div>
 
-            <!-- 8-Step Kriya Flow from File -->
+            <!-- 8-Step Kriya Flow -->
             <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-amber-500/30 space-y-6">
                 <div class="border-b border-white/10 pb-4">
                     <h2 class="text-xl font-bold text-amber-300 flex items-center gap-2">
@@ -418,6 +416,8 @@
         <!-- TAB 3: JOURNAL & DASHBOARD                 -->
         <!-- ========================================== -->
         <section id="tab-journal" class="space-y-8 hidden animate-fadeIn">
+            
+            <!-- Statistics Overview Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div class="glass-panel p-6 rounded-3xl border border-white/10 flex items-center space-x-4">
                     <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300 text-xl">
@@ -444,30 +444,36 @@
                         <i class="fa-solid fa-fire"></i>
                     </div>
                     <div>
-                        <div class="text-xs text-slate-400">연속 명상</div>
+                        <div class="text-xs text-slate-400">연속 명상 스트릭</div>
                         <div id="stat-streak" class="text-2xl font-bold text-white mt-0.5">0일</div>
                     </div>
                 </div>
             </div>
 
-            <!-- New Manual Journal Entry Box -->
+            <!-- Manual Journal Entry Form (Before & After Emotions) -->
             <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-cyan-500/30 space-y-5">
                 <div class="border-b border-white/10 pb-3 flex items-center justify-between">
                     <h2 class="text-lg font-bold text-cyan-300 flex items-center gap-2">
-                        <i class="fa-solid fa-pen-nib text-cyan-400"></i> 새 성찰 일지 직접 작성하기
+                        <i class="fa-solid fa-pen-nib text-cyan-400"></i> 새로운 성찰 일지 작성
                     </h2>
-                    <span class="text-xs text-slate-400">마음의 소리 기록</span>
+                    <span class="text-xs text-slate-400">명상 전·후 마음 상태 변화 기록</span>
                 </div>
 
                 <div class="space-y-4 text-xs">
-                    <div>
-                        <label class="block text-slate-300 font-medium mb-1.5">오늘의 기분 / 상태 선택</label>
-                        <div class="flex items-center justify-between gap-2">
-                            <button type="button" onclick="selectTabMood('평온함 😌')" class="tab-mood-btn flex-1 py-2 bg-cyan-500/30 border border-cyan-400 text-cyan-200 rounded-xl">평온함 😌</button>
-                            <button type="button" onclick="selectTabMood('상쾌함 🍃')" class="tab-mood-btn flex-1 py-2 bg-white/5 border border-white/10 text-slate-300 rounded-xl">상쾌함 🍃</button>
-                            <button type="button" onclick="selectTabMood('집중 짱 ⚡')" class="tab-mood-btn flex-1 py-2 bg-white/5 border border-white/10 text-slate-300 rounded-xl">집중 ⚡</button>
-                            <button type="button" onclick="selectTabMood('감사함 🙏')" class="tab-mood-btn flex-1 py-2 bg-white/5 border border-white/10 text-slate-300 rounded-xl">감사 🌟</button>
-                        </div>
+                    <!-- Before Emotions -->
+                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2.5">
+                        <label class="block text-slate-200 font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-rose-400"></span> 명상 전 마음 상태 (Before) <span class="text-[11px] font-normal text-slate-400">- 복수 선택 가능</span>
+                        </label>
+                        <div id="tab-before-emotions" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- After Emotions -->
+                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 space-y-2.5">
+                        <label class="block text-slate-200 font-semibold flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400"></span> 명상 후 마음 상태 (After) <span class="text-[11px] font-normal text-slate-400">- 복수 선택 가능</span>
+                        </label>
+                        <div id="tab-after-emotions" class="flex flex-wrap gap-2"></div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -476,14 +482,14 @@
                             <input type="number" id="manual-duration" value="5" min="1" max="180" class="w-full bg-cosmic-900 border border-white/10 rounded-xl p-2.5 text-slate-200 text-xs focus:outline-none focus:border-cyan-400">
                         </div>
                         <div>
-                            <label class="block text-slate-300 font-medium mb-1.5">날짜 / 제목</label>
-                            <input type="text" id="manual-title" placeholder="예: 아침 호흡 명상 후" class="w-full bg-cosmic-900 border border-white/10 rounded-xl p-2.5 text-slate-200 text-xs focus:outline-none focus:border-cyan-400">
+                            <label class="block text-slate-300 font-medium mb-1.5">수련 호흡 / 제목</label>
+                            <input type="text" id="manual-title" placeholder="예: 4-7-8 심신 안심 호흡 후" class="w-full bg-cosmic-900 border border-white/10 rounded-xl p-2.5 text-slate-200 text-xs focus:outline-none focus:border-cyan-400">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-slate-300 font-medium mb-1.5">내용 및 성찰</label>
-                        <textarea id="manual-note-input" rows="3" placeholder="오늘 명상을 통해 느낀 점이나 생각들을 자유롭게 적어보세요..." class="w-full bg-cosmic-900 border border-white/10 rounded-2xl p-3 text-slate-200 text-xs focus:outline-none focus:border-cyan-400"></textarea>
+                        <textarea id="manual-note-input" rows="3" placeholder="오늘 명상 전후로 마음의 감정이나 호흡이 어떻게 변화했는지 기록해보세요..." class="w-full bg-cosmic-900 border border-white/10 rounded-2xl p-3 text-slate-200 text-xs focus:outline-none focus:border-cyan-400"></textarea>
                     </div>
 
                     <div class="text-right">
@@ -494,13 +500,14 @@
                 </div>
             </div>
 
+            <!-- Meditation Reflection Journal List -->
             <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-white/10 space-y-6">
                 <div class="flex items-center justify-between border-b border-white/10 pb-4">
                     <div>
                         <h2 class="text-lg font-bold text-amber-300 flex items-center gap-2">
-                            <i class="fa-solid fa-book-bookmark text-amber-400"></i> 나의 마음 성찰 일지 목록
+                            <i class="fa-solid fa-book-bookmark text-amber-400"></i> 명상 성찰 일지 기록 목록
                         </h2>
-                        <p class="text-xs text-slate-400 mt-1">지금까지 기록된 모든 내면의 기록들입니다.</p>
+                        <p class="text-xs text-slate-400 mt-1">세션 완료 후 작성하거나 직접 등록한 마음 변화 기록입니다.</p>
                     </div>
                     <button onclick="clearJournalHistory()" class="text-xs text-rose-400 hover:text-rose-300 transition flex items-center gap-1">
                         <i class="fa-solid fa-trash-can"></i> 전체 기록 삭제
@@ -509,7 +516,7 @@
 
                 <div id="journal-list" class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
                     <div class="text-center py-12 text-slate-500 text-xs">
-                        아직 기록된 명상 성찰 일지가 없습니다. 일지를 작성해 보세요!
+                        아직 기록된 명상 성찰 일지가 없습니다. 명상 세션을 완료하거나 일지를 작성해 보세요!
                     </div>
                 </div>
             </div>
@@ -518,48 +525,283 @@
     </main>
 
     <!-- MODAL: Post Session Journal Input Modal -->
-    <div id="modal-session-complete" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
-        <div class="glass-panel max-w-lg w-full p-6 sm:p-8 rounded-3xl border border-amber-500/30 space-y-5">
-            <div class="text-center space-y-2">
-                <div class="w-16 h-16 mx-auto rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-2xl text-amber-300">
+    <div id="modal-session-complete" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden overflow-y-auto">
+        <div class="glass-panel max-w-xl w-full p-6 sm:p-8 rounded-3xl border border-amber-500/30 space-y-5 animate-scaleUp my-auto">
+            <div class="text-center space-y-1.5">
+                <div class="w-14 h-14 mx-auto rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-2xl text-amber-300">
                     🌿
                 </div>
-                <h3 class="text-xl font-bold text-white">명상 완료! 수고했어요</h3>
+                <h3 class="text-xl font-bold text-white">명상 세션 완료</h3>
                 <p id="modal-session-summary" class="text-xs text-slate-300">5분 동안 마음을 다스렸습니다.</p>
             </div>
 
             <div class="space-y-4 text-xs">
-                <div>
-                    <label class="block text-slate-300 font-medium mb-1.5">지금 나의 기분 상태</label>
-                    <div class="flex items-center justify-between gap-2">
-                        <button type="button" onclick="selectMood('평온함 😌')" class="mood-btn flex-1 py-2 bg-white/5 hover:bg-cyan-500/20 rounded-xl border border-white/10 text-slate-300">평온함 😌</button>
-                        <button type="button" onclick="selectMood('상쾌함 🍃')" class="mood-btn flex-1 py-2 bg-white/5 hover:bg-cyan-500/20 rounded-xl border border-white/10 text-slate-300">상쾌함 🍃</button>
-                        <button type="button" onclick="selectMood('집중 짱 ⚡')" class="mood-btn flex-1 py-2 bg-white/5 hover:bg-cyan-500/20 rounded-xl border border-white/10 text-slate-300">집중 ⚡</button>
-                        <button type="button" onclick="selectMood('감사함 🙏')" class="mood-btn flex-1 py-2 bg-white/5 hover:bg-cyan-500/20 rounded-xl border border-white/10 text-slate-300">감사 🌟</button>
-                    </div>
+                <div class="bg-white/5 p-3.5 rounded-2xl border border-white/10 space-y-2">
+                    <label class="block text-slate-200 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-rose-400"></span> 명상 전 마음 상태 (Before)
+                    </label>
+                    <div id="modal-before-emotions" class="flex flex-wrap gap-1.5"></div>
+                </div>
+
+                <div class="bg-white/5 p-3.5 rounded-2xl border border-white/10 space-y-2">
+                    <label class="block text-slate-200 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span> 명상 후 마음 상태 (After)
+                    </label>
+                    <div id="modal-after-emotions" class="flex flex-wrap gap-1.5"></div>
                 </div>
 
                 <div>
-                    <label class="block text-slate-300 font-medium mb-1.5">간단한 메모 / 생각</label>
-                    <textarea id="session-note-input" rows="3" placeholder="오늘 명상하며 느낀 점을 자유롭게 적어보세요..." class="w-full bg-cosmic-900 border border-white/10 rounded-2xl p-3 text-slate-200 text-xs focus:outline-none focus:border-cyan-400"></textarea>
+                    <label class="block text-slate-300 font-medium mb-1.5">명상 메모 / 떠오른 성찰</label>
+                    <textarea id="session-note-input" rows="3" placeholder="오늘 명상 중 호흡에 집중하며 느낀 감정의 변화를 기록해보세요..." class="w-full bg-cosmic-900 border border-white/10 rounded-2xl p-3 text-slate-200 text-xs focus:outline-none focus:border-cyan-400"></textarea>
                 </div>
             </div>
 
-            <div class="flex items-center justify-end space-x-3 pt-2">
-                <button onclick="saveSessionJournal()" class="w-full py-3 bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
+            <div class="flex items-center justify-end space-x-3 pt-1">
+                <button onclick="document.getElementById('modal-session-complete').classList.add('hidden')" class="px-5 py-3 bg-white/10 hover:bg-white/20 text-slate-300 font-medium rounded-xl transition">
+                    닫기
+                </button>
+                <button onclick="saveSessionJournal()" class="flex-1 py-3 bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
                     성찰 일지 저장하기
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Notification Toast Container -->
+    <!-- MODAL: Confirm Clear All Modal -->
+    <div id="modal-confirm-clear" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-panel max-w-sm w-full p-6 rounded-3xl border border-rose-500/30 space-y-4 text-center">
+            <div class="w-12 h-12 mx-auto rounded-full bg-rose-500/20 border border-rose-400/40 flex items-center justify-center text-rose-300 text-lg">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h4 class="text-base font-bold text-white">전체 기록 초기화</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">정말로 모든 명상 성찰 일지와 통계를 초기화하시겠습니까?</p>
+            <div class="flex items-center gap-2 pt-2 text-xs">
+                <button onclick="document.getElementById('modal-confirm-clear').classList.add('hidden')" class="flex-1 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 font-medium transition">취소</button>
+                <button onclick="executeClearJournalHistory()" class="flex-1 py-2.5 rounded-xl bg-rose-500 hover:bg-rose-400 text-white font-bold transition">초기화</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 space-y-2 pointer-events-none"></div>
 
     <script>
-        /* ==========================================
-           AUDIO ENGINE (Completely Revised Sound Synthesis)
-           ========================================== */
+        /* ==========================================================================
+           JOURNAL & EMOTIONS ENGINE
+           ========================================================================== */
+        const EMOTION_OPTIONS = [
+            { label: '🌪️ 산란함', type: 'negative' },
+            { label: '💢 분노·짜증', type: 'negative' },
+            { label: '😰 불안·초조', type: 'negative' },
+            { label: '😔 우울·무기력', type: 'negative' },
+            { label: '😩 피로·긴장', type: 'negative' },
+            { label: '🤯 스트레스·압박감', type: 'negative' },
+            { label: '🌿 평온함', type: 'positive' },
+            { label: '✨ 맑음·집중', type: 'positive' },
+            { label: '💛 감사·따뜻함', type: 'positive' },
+            { label: '🌈 가벼움·해방감', type: 'positive' },
+            { label: '🔋 활력·충전', type: 'positive' },
+            { label: '🧘 고요·깊은 이완', type: 'positive' }
+        ];
+
+        let stateEmotions = {
+            tabBefore: ['🌪️ 산란함'],
+            tabAfter: ['🌿 평온함'],
+            modalBefore: ['😰 불안·초조'],
+            modalAfter: ['🧘 고요·깊은 이완']
+        };
+
+        function renderEmotionSelectors() {
+            renderEmotionGroup('tab-before-emotions', 'tabBefore');
+            renderEmotionGroup('tab-after-emotions', 'tabAfter');
+            renderEmotionGroup('modal-before-emotions', 'modalBefore');
+            renderEmotionGroup('modal-after-emotions', 'modalAfter');
+        }
+
+        function renderEmotionGroup(containerId, stateKey) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const selectedList = stateEmotions[stateKey];
+            container.innerHTML = EMOTION_OPTIONS.map(opt => {
+                const isSelected = selectedList.includes(opt.label);
+                let styleClass = 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10';
+                if (isSelected) {
+                    styleClass = opt.type === 'negative'
+                        ? 'bg-rose-500/25 border-rose-400 text-rose-200 font-semibold shadow-sm'
+                        : 'bg-cyan-500/25 border-cyan-400 text-cyan-200 font-semibold shadow-sm';
+                }
+                return `
+                    <button type="button" onclick="toggleEmotionSelection('${stateKey}', '${opt.label}')" class="px-3 py-1.5 rounded-full border text-[11px] transition-all ${styleClass}">
+                        ${opt.label}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function toggleEmotionSelection(stateKey, label) {
+            const list = stateEmotions[stateKey];
+            const idx = list.indexOf(label);
+            if (idx > -1) {
+                if (list.length > 1) list.splice(idx, 1);
+            } else {
+                list.push(label);
+            }
+            renderEmotionSelectors();
+        }
+
+        function saveManualJournal() {
+            const duration = parseInt(document.getElementById('manual-duration').value) || 5;
+            const title = document.getElementById('manual-title').value.trim() || '호흡 명상 성찰';
+            const noteText = document.getElementById('manual-note-input').value.trim();
+
+            if (!noteText) {
+                showToast("성찰 내용을 입력해주세요.");
+                return;
+            }
+
+            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const newEntry = {
+                id: Date.now(),
+                date: dateStr,
+                title: title,
+                duration: duration,
+                beforeMoods: [...stateEmotions.tabBefore],
+                afterMoods: [...stateEmotions.tabAfter],
+                note: noteText
+            };
+
+            const history = JSON.parse(localStorage.getItem('student_meditation_journal') || '[]');
+            history.unshift(newEntry);
+            localStorage.setItem('student_meditation_journal', JSON.stringify(history));
+
+            updateStatsOnCompletion(duration);
+            document.getElementById('manual-note-input').value = '';
+            document.getElementById('manual-title').value = '';
+            
+            showToast("📖 마음 상태 변화가 담긴 성찰 일지가 등록되었습니다!");
+            loadJournalData();
+        }
+
+        function saveSessionJournal() {
+            const noteText = document.getElementById('session-note-input').value.trim();
+            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+            const patternName = BREATH_PATTERNS[currentPattern] ? BREATH_PATTERNS[currentPattern].name : '호흡 명상';
+
+            const newEntry = {
+                id: Date.now(),
+                date: dateStr,
+                title: patternName,
+                duration: Math.max(1, Math.round(initialSeconds / 60)),
+                beforeMoods: [...stateEmotions.modalBefore],
+                afterMoods: [...stateEmotions.modalAfter],
+                note: noteText || '호흡에 집중하며 차분하게 마음의 안정을 찾았습니다.'
+            };
+
+            const history = JSON.parse(localStorage.getItem('student_meditation_journal') || '[]');
+            history.unshift(newEntry);
+            localStorage.setItem('student_meditation_journal', JSON.stringify(history));
+
+            document.getElementById('modal-session-complete').classList.add('hidden');
+            document.getElementById('session-note-input').value = '';
+            
+            showToast("📖 명상 성찰 일지가 저장되었습니다!");
+            loadJournalData();
+        }
+
+        function updateStatsOnCompletion(mins) {
+            let totalMins = parseInt(localStorage.getItem('student_total_mins') || '0');
+            let totalSessions = parseInt(localStorage.getItem('student_total_sessions') || '0');
+            
+            totalMins += mins;
+            totalSessions += 1;
+
+            localStorage.setItem('student_total_mins', totalMins);
+            localStorage.setItem('student_total_sessions', totalSessions);
+
+            loadStatsDisplay();
+        }
+
+        function loadStatsDisplay() {
+            const totalMins = localStorage.getItem('student_total_mins') || '0';
+            const totalSessions = localStorage.getItem('student_total_sessions') || '0';
+
+            document.getElementById('stat-total-time').innerText = `${totalMins}분`;
+            document.getElementById('stat-total-sessions').innerText = `${totalSessions}회`;
+            document.getElementById('stat-streak').innerText = `${totalSessions > 0 ? 1 : 0}일`;
+        }
+
+        function loadJournalData() {
+            loadStatsDisplay();
+            const history = JSON.parse(localStorage.getItem('student_meditation_journal') || '[]');
+            const container = document.getElementById('journal-list');
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-500 text-xs">
+                        아직 기록된 성찰 일지가 없습니다. 명상을 마치고 마음의 변화를 기록해 보세요!
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = history.map(item => {
+                const beforeText = item.beforeMoods ? item.beforeMoods.join(', ') : '기록 없음';
+                const afterText = item.afterMoods ? item.afterMoods.join(', ') : '평온함 🌿';
+                const entryTitle = item.title ? ` · ${item.title}` : '';
+
+                return `
+                <div class="glass-card p-4 sm:p-5 rounded-2xl space-y-3 border border-white/10">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div class="flex items-center gap-2 text-slate-300 font-medium">
+                            <span><i class="fa-regular fa-calendar mr-1 text-amber-300"></i>${item.date}${entryTitle}</span>
+                            <span class="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[11px]">${item.duration}분</span>
+                        </div>
+                        <button onclick="deleteJournalEntry(${item.id})" class="text-slate-500 hover:text-rose-400 transition px-1.5 py-0.5 rounded-lg hover:bg-white/5" title="삭제">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+
+                    <!-- Emotional Shift Flow Badge -->
+                    <div class="flex flex-wrap items-center gap-2 bg-cosmic-900/80 p-2.5 rounded-xl border border-white/5 text-[11px]">
+                        <span class="px-2.5 py-1 rounded-lg bg-rose-500/15 text-rose-200 border border-rose-400/30">
+                            <strong class="text-rose-300 mr-1">명상 전:</strong>${beforeText}
+                        </span>
+                        <span class="text-amber-400 font-bold px-1">➔</span>
+                        <span class="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-200 border border-cyan-400/30">
+                            <strong class="text-cyan-300 mr-1">명상 후:</strong>${afterText}
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-200 leading-relaxed pt-0.5">${item.note}</p>
+                </div>
+            `}).join('');
+        }
+
+        function deleteJournalEntry(id) {
+            let history = JSON.parse(localStorage.getItem('student_meditation_journal') || '[]');
+            history = history.filter(item => item.id !== id);
+            localStorage.setItem('student_meditation_journal', JSON.stringify(history));
+            loadJournalData();
+            showToast("선택한 일지가 삭제되었습니다.");
+        }
+
+        function clearJournalHistory() {
+            document.getElementById('modal-confirm-clear').classList.remove('hidden');
+        }
+
+        function executeClearJournalHistory() {
+            localStorage.removeItem('student_meditation_journal');
+            localStorage.removeItem('student_total_mins');
+            localStorage.removeItem('student_total_sessions');
+            document.getElementById('modal-confirm-clear').classList.add('hidden');
+            loadJournalData();
+            showToast("모든 기록이 초기화되었습니다.");
+        }
+
+        /* ==========================================================================
+           AUDIO ENGINE (Singing Bowl & Rain)
+           ========================================================================== */
         let audioCtx = null;
         let rainSource = null;
         let rainGain = null;
@@ -574,112 +816,61 @@
             }
         }
 
-        /* Completely New Singing Bowl: Multi-Tiered Crystal Overtone Bell */
         function playSingingBowlSound() {
             initAudio();
             const now = audioCtx.currentTime;
             
-            // Rich multi-harmonic bell frequencies (Tibetan Bowl 528Hz & 432Hz Blend)
-            const bellFrequencies = [264, 528, 792, 1056, 1320, 1584];
-            const bellGains = [0.5, 0.4, 0.25, 0.15, 0.08, 0.04];
-            const bellDurations = [7.5, 6.8, 6.0, 5.2, 4.5, 3.8];
+            const osc1 = audioCtx.createOscillator();
+            const osc2 = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
 
-            bellFrequencies.forEach((freq, idx) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(216, now);
+            
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(216 * 1.5, now);
 
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.01, now);
+            gain.gain.exponentialRampToValueAtTime(0.7, now + 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 7.0);
 
-                // Subtle natural frequency drift (micro-pitch wobble)
-                const wobble = audioCtx.createOscillator();
-                const wobbleGain = audioCtx.createGain();
-                wobble.type = 'sine';
-                wobble.frequency.setValueAtTime(0.8, now);
-                wobbleGain.gain.setValueAtTime(1.5, now);
-                wobble.connect(osc.detune);
-                wobble.start(now);
-                wobble.stop(now + bellDurations[idx]);
+            osc1.connect(gain);
+            osc2.connect(gain);
+            gain.connect(audioCtx.destination);
 
-                // Smooth exponential envelope for long, pristine bell sustain
-                gain.gain.setValueAtTime(0.0001, now);
-                gain.gain.exponentialRampToValueAtTime(bellGains[idx], now + 0.04);
-                gain.gain.exponentialRampToValueAtTime(0.00001, now + bellDurations[idx]);
-
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-
-                osc.start(now);
-                osc.stop(now + bellDurations[idx]);
-            });
+            osc1.start(now);
+            osc2.start(now);
+            osc1.stop(now + 7.1);
+            osc2.stop(now + 7.1);
         }
 
         function toggleRainSoundQuick() {
-            isRainPlaying = !isRainPlaying;
-            toggleRainSound(isRainPlaying);
-            const statusEl = document.getElementById('rain-status-text');
-            const btnEl = document.getElementById('btn-rain-toggle');
-            if (isRainPlaying) {
-                statusEl.innerText = 'ON';
-                btnEl.className = "py-2 px-3 bg-blue-500/40 text-blue-200 text-xs rounded-xl transition-all border border-blue-400 flex items-center justify-center gap-1.5 font-medium shadow-md";
-                showToast("청정한 자연 빗소리가 켜졌습니다.");
-            } else {
-                statusEl.innerText = 'OFF';
-                btnEl.className = "py-2 px-3 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs rounded-xl transition-all border border-blue-500/30 flex items-center justify-center gap-1.5 font-medium";
-                showToast("빗소리가 꺼졌습니다.");
-            }
-        }
-
-        /* Completely New Realistic Rainfall Generator (Filtered Pink Noise with Organic Droplet Variations) */
-        function toggleRainSound(enable) {
             initAudio();
             const now = audioCtx.currentTime;
+            const statusSpan = document.getElementById('rain-status-text');
+            const btn = document.getElementById('btn-rain-toggle');
 
-            if (enable) {
-                const bufferSize = audioCtx.sampleRate * 5;
-                const buffer = audioCtx.createBuffer(2, bufferSize, audioCtx.sampleRate);
-                const leftChannel = buffer.getChannelData(0);
-                const rightChannel = buffer.getChannelData(1);
-                
+            if (!isRainPlaying) {
+                isRainPlaying = true;
+                statusSpan.innerText = 'ON';
+                btn.className = "py-2 px-3 bg-blue-500/40 text-blue-200 text-xs rounded-xl transition-all border border-blue-400 flex items-center justify-center gap-1.5 font-semibold shadow-md";
+
+                const bufferSize = audioCtx.sampleRate * 2;
+                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                const data = buffer.getChannelData(0);
                 let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-                let r0 = 0, r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0;
 
                 for (let i = 0; i < bufferSize; i++) {
-                    let whiteL = Math.random() * 2 - 1;
-                    let whiteR = Math.random() * 2 - 1;
-                    
-                    // Left channel pink/brown noise shaping for warm ambient rain
-                    b0 = 0.99886 * b0 + whiteL * 0.0555179;
-                    b1 = 0.99332 * b1 + whiteL * 0.0750759;
-                    b2 = 0.96900 * b2 + whiteL * 0.1538520;
-                    b3 = 0.86650 * b3 + whiteL * 0.3104856;
-                    b4 = 0.55000 * b4 + whiteL * 0.5329522;
-                    b5 = -0.7616 * b5 - whiteL * 0.0168980;
-                    let sampleL = b0 + b1 + b2 + b3 + b4 + b5 + b6 + whiteL * 0.5362;
-                    sampleL *= 0.05;
-                    b6 = whiteL * 0.115926;
-
-                    // Right channel shaping
-                    r0 = 0.99886 * r0 + whiteR * 0.0555179;
-                    r1 = 0.99332 * r1 + whiteR * 0.0750759;
-                    r2 = 0.96900 * r2 + whiteR * 0.1538520;
-                    r3 = 0.86650 * r3 + whiteR * 0.3104856;
-                    r4 = 0.55000 * r4 + whiteR * 0.5329522;
-                    r5 = -0.7616 * r5 - whiteR * 0.0168980;
-                    let sampleR = r0 + r1 + r2 + r3 + r4 + r5 + r6 + whiteR * 0.5362;
-                    sampleR *= 0.05;
-                    r6 = whiteR * 0.115926;
-
-                    // Realistic droplet splashes
-                    if (Math.random() < 0.002) {
-                        sampleL += (Math.random() * 0.3 - 0.15);
-                    }
-                    if (Math.random() < 0.002) {
-                        sampleR += (Math.random() * 0.3 - 0.15);
-                    }
-
-                    leftChannel[i] = sampleL;
-                    rightChannel[i] = sampleR;
+                    let white = Math.random() * 2 - 1;
+                    b0 = 0.99886 * b0 + white * 0.0555179;
+                    b1 = 0.99332 * b1 + white * 0.0750759;
+                    b2 = 0.96900 * b2 + white * 0.1538520;
+                    b3 = 0.86650 * b3 + white * 0.3104856;
+                    b4 = 0.55000 * b4 + white * 0.5329522;
+                    b5 = -0.7616 * b5 - white * 0.0168980;
+                    data[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                    data[i] *= 0.05;
+                    b6 = white * 0.115926;
                 }
 
                 rainSource = audioCtx.createBufferSource();
@@ -687,31 +878,35 @@
                 rainSource.loop = true;
 
                 rainGain = audioCtx.createGain();
-                rainGain.gain.setValueAtTime(0.45, now);
+                rainGain.gain.setValueAtTime(0.25, now);
 
-                // Dual Biquad filters to isolate soft, calming rainfall frequencies
-                const lowpass = audioCtx.createBiquadFilter();
-                lowpass.type = 'lowpass';
-                lowpass.frequency.setValueAtTime(2600, now);
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(1200, now);
 
-                const highpass = audioCtx.createBiquadFilter();
-                highpass.type = 'highpass';
-                highpass.frequency.setValueAtTime(200, now);
-
-                rainSource.connect(highpass);
-                highpass.connect(lowpass);
-                lowpass.connect(rainGain);
+                rainSource.connect(filter);
+                filter.connect(rainGain);
                 rainGain.connect(audioCtx.destination);
 
                 rainSource.start(now);
+                showToast("청정한 자연 빗소리가 시작되었습니다 🌧️");
             } else {
-                if (rainSource) { rainSource.stop(); rainSource.disconnect(); }
+                isRainPlaying = false;
+                statusSpan.innerText = 'OFF';
+                btn.className = "py-2 px-3 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs rounded-xl transition-all border border-blue-500/30 flex items-center justify-center gap-1.5 font-medium";
+
+                if (rainSource) {
+                    rainSource.stop();
+                    rainSource.disconnect();
+                    rainSource = null;
+                }
+                showToast("빗소리가 종료되었습니다.");
             }
         }
 
-        /* ==========================================
-           BREATHING TIMER ENGINE
-           ========================================== */
+        /* ==========================================================================
+           BREATHING & TIMER ENGINE
+           ========================================================================== */
         let totalSeconds = 300;
         let initialSeconds = 300;
         let timerInterval = null;
@@ -720,26 +915,26 @@
 
         const BREATH_PATTERNS = {
             relax: {
-                name: '4-7-8 심신 안심',
+                name: '4-7-8 심신 안심 호흡',
                 phases: [
-                    { text: '들숨 (4초)', duration: 4, sub: '코로 깊고 온화하게 천천히 들이쉬세요', color: '#38bdf8' },
-                    { text: '멈춤 (7초)', duration: 7, sub: '마음을 편안히 침묵 속에 고요히 머뭄', color: '#fbbf24' },
-                    { text: '날숨 (8초)', duration: 8, sub: '입으로 길게 내쉬며 온몸의 긴장 풀기', color: '#a855f7' }
+                    { text: '들숨 (吸)', duration: 4, sub: '코로 깊고 온화하게 천천히 들숨', color: '#38bdf8' },
+                    { text: '호흡 멈춤 (止)', duration: 7, sub: '마음을 편안히 침묵 속에서 고요히 멈춤', color: '#fbbf24' },
+                    { text: '날숨 (呼)', duration: 8, sub: '입으로 길게 내쉬며 온몸의 긴장 풀기', color: '#a855f7' }
                 ]
             },
             box: {
-                name: '박스 호흡',
+                name: '박스 호흡 (4-4-4-4)',
                 phases: [
-                    { text: '들숨 (4초)', duration: 4, sub: '코로 숨을 깊게 들이쉬세요', color: '#06b6d4' },
-                    { text: '멈춤 (4초)', duration: 4, sub: '숨을 멈추고 고요함을 유지', color: '#facc15' },
-                    { text: '날숨 (4초)', duration: 4, sub: '입으로 부드럽게 내쉬세요', color: '#f97316' },
-                    { text: '멈춤 (4초)', duration: 4, sub: '편안한 상태로 잠시 멈춤', color: '#a855f7' }
+                    { text: '들숨 (吸)', duration: 4, sub: '코로 깊게 들이쉬기', color: '#06b6d4' },
+                    { text: '호흡 멈춤 (止)', duration: 4, sub: '숨을 멈추고 유지하기', color: '#facc15' },
+                    { text: '날숨 (呼)', duration: 4, sub: '입으로 천천히 내쉬기', color: '#f97316' },
+                    { text: '호흡 멈춤 (止)', duration: 4, sub: '비운 상태 유지하기', color: '#a855f7' }
                 ]
             },
             free: {
                 name: '자유 명상',
                 phases: [
-                    { text: '명상 중', duration: 10, sub: '자연스러운 호흡의 흐름에 집중하세요', color: '#06b6d4' }
+                    { text: '입정 (入定)', duration: 10, sub: '자연스러운 호흡의 흐름을 고요히 관조', color: '#06b6d4' }
                 ]
             }
         };
@@ -776,22 +971,15 @@
 
             if (!isRunning) {
                 isRunning = true;
-                btn.innerHTML = `<i class="fa-solid fa-pause"></i> 명상 일시정지`;
-                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-rose-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2";
+                btn.innerHTML = `<i class="fa-solid fa-pause"></i> 일시정지`;
+                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 text-slate-950 font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2";
 
                 playSingingBowlSound();
-                
-                // Immediately update guide text upon start
-                const pattern = BREATH_PATTERNS[currentPattern];
-                const currentPhase = pattern.phases[currentPhaseIdx];
-                document.getElementById('breath-phase-text').innerText = currentPhase.text;
-                document.getElementById('breath-sub-text').innerText = currentPhase.sub;
-
                 timerInterval = setInterval(tick, 1000);
             } else {
                 isRunning = false;
                 btn.innerHTML = `<i class="fa-solid fa-play"></i> 명상 시작하기`;
-                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-cyan-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2";
+                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 text-slate-950 font-bold text-xs shadow-lg transition-all flex items-center justify-center gap-2";
 
                 clearInterval(timerInterval);
             }
@@ -804,7 +992,7 @@
                 playSingingBowlSound();
                 updateStatsOnCompletion(Math.round(initialSeconds / 60));
                 document.getElementById('modal-session-complete').classList.remove('hidden');
-                document.getElementById('modal-session-summary').innerText = `${Math.round(initialSeconds / 60)}분 동안 고요히 내면을 관상하셨습니다.`;
+                document.getElementById('modal-session-summary').innerText = `${Math.round(initialSeconds / 60)}분 동안 호흡에 집중하며 명상을 완료하셨습니다.`;
                 resetTimer();
                 return;
             }
@@ -821,25 +1009,16 @@
             
             const totalPhaseDuration = currentPhase.duration;
             const dashOffset = 263.89 * (1 - (phaseTimer / totalPhaseDuration));
-            if (circleProgress) circleProgress.style.strokeDashoffset = dashOffset;
+            circleProgress.style.strokeDashoffset = dashOffset;
 
-            const phaseTextEl = document.getElementById('breath-phase-text');
-            const subTextEl = document.getElementById('breath-sub-text');
-            if (phaseTextEl) phaseTextEl.innerText = currentPhase.text;
-            if (subTextEl) subTextEl.innerText = currentPhase.sub;
-
-            if (currentPhase.text.includes('들숨')) {
+            if (currentPhase.text.includes('들숨') || currentPhase.text.includes('吸')) {
                 const scale = 0.75 + (phaseTimer / totalPhaseDuration) * 0.35;
-                if (pulseRing) {
-                    pulseRing.style.transform = `scale(${scale})`;
-                    pulseRing.style.opacity = '0.8';
-                }
-            } else if (currentPhase.text.includes('날숨')) {
+                pulseRing.style.transform = `scale(${scale})`;
+                pulseRing.style.opacity = '0.8';
+            } else if (currentPhase.text.includes('날숨') || currentPhase.text.includes('呼')) {
                 const scale = 1.1 - (phaseTimer / totalPhaseDuration) * 0.35;
-                if (pulseRing) {
-                    pulseRing.style.transform = `scale(${scale})`;
-                    pulseRing.style.opacity = '0.4';
-                }
+                pulseRing.style.transform = `scale(${scale})`;
+                pulseRing.style.opacity = '0.4';
             }
 
             if (phaseTimer >= totalPhaseDuration) {
@@ -847,8 +1026,8 @@
                 currentPhaseIdx = (currentPhaseIdx + 1) % pattern.phases.length;
                 const nextPhase = pattern.phases[currentPhaseIdx];
 
-                if (phaseTextEl) phaseTextEl.innerText = nextPhase.text;
-                if (subTextEl) subTextEl.innerText = nextPhase.sub;
+                document.getElementById('breath-phase-text').innerText = nextPhase.text;
+                document.getElementById('breath-sub-text').innerText = nextPhase.sub;
             }
         }
 
@@ -866,9 +1045,9 @@
             document.getElementById('breath-sub-text').innerText = '시작 버튼을 눌러 호흡을 시작하세요';
         }
 
-        /* ==========================================
-           CANVAS: PRANA NADIS & CHAKRAS
-           ========================================== */
+        /* ==========================================================================
+           CANVAS CHAKRA & NADIS VISUALIZER
+           ========================================================================== */
         const canvas = document.getElementById('nadisCanvas');
         const ctx = canvas ? canvas.getContext('2d') : null;
         let animationFrameId = null;
@@ -878,14 +1057,14 @@
             { id: 1, name: '1. 물라다라 (Root)', yRatio: 0.85, color: '#ef4444', mantra: 'LAM', desc: '위치: 회음부 | Red | 근본 대지 기운 및 하체 치유' },
             { id: 2, name: '2. 스바디스타나 (Sacral)', yRatio: 0.73, color: '#f97316', mantra: 'VAM', desc: '위치: 아랫배 | Orange | 감정 이완 및 생명 원기' },
             { id: 3, name: '3. 마니푸라 (Solar)', yRatio: 0.60, color: '#eab308', mantra: 'RAM', desc: '위치: 명치 | Yellow | 소화 불꽃 및 내면 의지력' },
-            { id: 4, name: '4. 아나하타 (Heart)', yRatio: 0.47, color: '#10b981', mantra: 'YAM', desc: '위치: 가슴 | Green | 대자비심 개방' },
+            { id: 4, name: '4. 아나하타 (Heart)', yRatio: 0.47, color: '#10b981', mantra: 'YAM', desc: '위치: 가슴 | Green | 마음의 평화와 자비심 개방' },
             { id: 5, name: '5. 비슈다 (Throat)', yRatio: 0.35, color: '#06b6d4', mantra: 'HAM', desc: '위치: 목 | Cyan | 진언 음송 파동 및 청정 소통' },
-            { id: 6, name: '6. 아즈나 (Third Eye)', yRatio: 0.22, color: '#3b82f6', mantra: 'OM', desc: '위치: 미간 | Blue | 내면 통찰 개안' },
-            { id: 7, name: '7. 사하스라라 (Crown)', yRatio: 0.10, color: '#a855f7', mantra: 'AUM', desc: '위치: 정수리 | Violet | 무량 정각 및 열반 보리' }
+            { id: 6, name: '6. 아즈나 (Third Eye)', yRatio: 0.22, color: '#3b82f6', mantra: 'OM', desc: '위치: 미간 | Blue | 내면 집중 및 맑은 통찰' },
+            { id: 7, name: '7. 사하스라라 (Crown)', yRatio: 0.10, color: '#a855f7', mantra: 'AUM', desc: '위치: 정수리 | Violet | 무량 정각 및 고요한 열반' }
         ];
 
         function resizeCanvas() {
-            if (!canvas) return;
+            if (!canvas || !canvas.parentElement) return;
             canvas.width = canvas.parentElement.clientWidth;
             canvas.height = canvas.parentElement.clientHeight;
             initParticles();
@@ -894,13 +1073,13 @@
 
         function initParticles() {
             particles = [];
-            for (let i = 0; i < 90; i++) {
+            for (let i = 0; i < 80; i++) {
                 particles.push({
                     t: Math.random(),
-                    speed: 0.0015 + Math.random() * 0.0025,
+                    speed: 0.0015 + Math.random() * 0.002,
                     type: Math.random() > 0.5 ? 'ida' : 'pingala',
-                    size: 2 + Math.random() * 3,
-                    gold: Math.random() > 0.75
+                    size: 2 + Math.random() * 2.5,
+                    gold: Math.random() > 0.8
                 });
             }
         }
@@ -914,25 +1093,27 @@
             const heightSpan = startY - endY;
 
             const grad = ctx.createRadialGradient(centerX, canvas.height * 0.3, 10, centerX, canvas.height * 0.3, canvas.width * 0.45);
-            grad.addColorStop(0, 'rgba(6, 182, 212, 0.22)');
-            grad.addColorStop(0.5, 'rgba(250, 204, 21, 0.08)');
+            grad.addColorStop(0, 'rgba(6, 182, 212, 0.2)');
+            grad.addColorStop(0.5, 'rgba(250, 204, 21, 0.06)');
             grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            // Sushumna Central Axis
             ctx.beginPath();
             ctx.moveTo(centerX, startY);
             ctx.lineTo(centerX, endY);
             ctx.strokeStyle = 'rgba(168, 85, 247, 0.6)';
-            ctx.lineWidth = 4;
-            ctx.shadowBlur = 16;
+            ctx.lineWidth = 3.5;
+            ctx.shadowBlur = 12;
             ctx.shadowColor = '#facc15';
             ctx.stroke();
             ctx.shadowBlur = 0;
 
-            const amplitude = Math.min(canvas.width * 0.18, 60);
+            const amplitude = Math.min(canvas.width * 0.16, 55);
             const frequency = 3.5 * Math.PI;
 
+            // Ida (Cyan)
             ctx.beginPath();
             for (let y = startY; y >= endY; y -= 2) {
                 const progress = (startY - y) / heightSpan;
@@ -940,10 +1121,11 @@
                 if (y === startY) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
-            ctx.strokeStyle = 'rgba(6, 182, 212, 0.8)';
-            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = 'rgba(6, 182, 212, 0.75)';
+            ctx.lineWidth = 2;
             ctx.stroke();
 
+            // Pingala (Orange)
             ctx.beginPath();
             for (let y = startY; y >= endY; y -= 2) {
                 const progress = (startY - y) / heightSpan;
@@ -951,8 +1133,8 @@
                 if (y === startY) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
-            ctx.strokeStyle = 'rgba(249, 115, 22, 0.8)';
-            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = 'rgba(249, 115, 22, 0.75)';
+            ctx.lineWidth = 2;
             ctx.stroke();
 
             particles.forEach(p => {
@@ -978,14 +1160,14 @@
                 const cy = canvas.height * c.yRatio;
 
                 ctx.beginPath();
-                ctx.arc(centerX, cy, 16, 0, Math.PI * 2);
+                ctx.arc(centerX, cy, 15, 0, Math.PI * 2);
                 ctx.fillStyle = c.color + '33';
                 ctx.fill();
 
                 ctx.beginPath();
-                ctx.arc(centerX, cy, 8, 0, Math.PI * 2);
+                ctx.arc(centerX, cy, 7.5, 0, Math.PI * 2);
                 ctx.fillStyle = c.color;
-                ctx.shadowBlur = 14;
+                ctx.shadowBlur = 12;
                 ctx.shadowColor = c.color;
                 ctx.fill();
                 ctx.shadowBlur = 0;
@@ -1013,170 +1195,15 @@
         }
 
         function displayChakraDetails(c) {
-            const dot = document.getElementById('chakra-color-dot');
-            const nameEl = document.getElementById('chakra-name');
-            const descEl = document.getElementById('chakra-desc');
-            const mantraEl = document.getElementById('chakra-mantra');
-            if (dot) dot.style.backgroundColor = c.color;
-            if (nameEl) nameEl.innerText = `${c.id}. ${c.name}`;
-            if (descEl) descEl.innerText = c.desc;
-            if (mantraEl) mantraEl.innerText = `Mantra: ${c.mantra}`;
+            document.getElementById('chakra-color-dot').style.backgroundColor = c.color;
+            document.getElementById('chakra-name').innerText = c.name;
+            document.getElementById('chakra-desc').innerText = c.desc;
+            document.getElementById('chakra-mantra').innerText = `Mantra: ${c.mantra}`;
         }
 
-        /* ==========================================
-           JOURNAL ENGINE
-           ========================================== */
-        let selectedMoodTag = '평온함 😌';
-        let selectedTabMoodTag = '평온함 😌';
-
-        function selectMood(mood) {
-            selectedMoodTag = mood;
-            document.querySelectorAll('.mood-btn').forEach(btn => {
-                if (btn.innerText.includes(mood.split(' ')[0])) {
-                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                } else {
-                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                }
-            });
-        }
-
-        function selectTabMood(mood) {
-            selectedTabMoodTag = mood;
-            document.querySelectorAll('.tab-mood-btn').forEach(btn => {
-                if (btn.innerText.includes(mood.split(' ')[0])) {
-                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                } else {
-                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                    btn.classList.add('bg-white/5', 'border-white/10', 'text-slate-300');
-                }
-            });
-        }
-
-        function saveManualJournal() {
-            const duration = parseInt(document.getElementById('manual-duration').value) || 5;
-            const title = document.getElementById('manual-title').value.trim() || '명상 성찰';
-            const noteText = document.getElementById('manual-note-input').value.trim();
-
-            if (!noteText) {
-                showToast("성찰 내용을 입력해주세요.");
-                return;
-            }
-
-            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            const newEntry = {
-                id: Date.now(),
-                date: `${dateStr} (${title})`,
-                duration: duration,
-                mood: selectedTabMoodTag,
-                note: noteText
-            };
-
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history.unshift(newEntry);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-
-            updateStatsOnCompletion(duration);
-            document.getElementById('manual-note-input').value = '';
-            document.getElementById('manual-title').value = '';
-            
-            showToast("📖 새로운 성찰 일지가 등록되었습니다!");
-            loadJournalData();
-        }
-
-        function saveSessionJournal() {
-            const noteText = document.getElementById('session-note-input').value.trim();
-            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            const newEntry = {
-                id: Date.now(),
-                date: dateStr,
-                duration: Math.round(initialSeconds / 60),
-                mood: selectedMoodTag,
-                note: noteText || '별도 메모 없이 명상을 완료했습니다.'
-            };
-
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history.unshift(newEntry);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-
-            document.getElementById('modal-session-complete').classList.add('hidden');
-            document.getElementById('session-note-input').value = '';
-            
-            showToast("📖 명상 성찰 일지가 저장되었습니다!");
-            loadJournalData();
-        }
-
-        function updateStatsOnCompletion(mins) {
-            let totalMins = parseInt(localStorage.getItem('prana_total_mins') || '0');
-            let totalSessions = parseInt(localStorage.getItem('prana_total_sessions') || '0');
-            
-            totalMins += mins;
-            totalSessions += 1;
-
-            localStorage.setItem('prana_total_mins', totalMins);
-            localStorage.setItem('prana_total_sessions', totalSessions);
-
-            loadStatsDisplay();
-        }
-
-        function loadStatsDisplay() {
-            const totalMins = localStorage.getItem('prana_total_mins') || '0';
-            const totalSessions = localStorage.getItem('prana_total_sessions') || '0';
-
-            document.getElementById('stat-total-time').innerText = `${totalMins}분`;
-            document.getElementById('stat-total-sessions').innerText = `${totalSessions}회`;
-            document.getElementById('stat-streak').innerText = `${totalSessions > 0 ? 1 : 0}일`;
-        }
-
-        function loadJournalData() {
-            loadStatsDisplay();
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            const container = document.getElementById('journal-list');
-
-            if (history.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 text-slate-500 text-xs">
-                        아직 기록된 명상 성찰 일지가 없습니다. 일지를 작성해 보세요!
-                    </div>`;
-                return;
-            }
-
-            container.innerHTML = history.map(item => `
-                <div class="glass-card p-4 rounded-2xl space-y-2 border border-white/5 relative group">
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="text-slate-400"><i class="fa-regular fa-calendar mr-1"></i>${item.date}</span>
-                        <div class="flex items-center space-x-2">
-                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">${item.duration}분 명상</span>
-                            <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">${item.mood}</span>
-                            <button onclick="deleteJournalEntry(${item.id})" class="text-slate-500 hover:text-rose-400 transition px-1" title="기록 삭제">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-200 leading-relaxed pt-1">${item.note}</p>
-                </div>
-            `).join('');
-        }
-
-        function deleteJournalEntry(id) {
-            let history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history = history.filter(item => item.id !== id);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-            loadJournalData();
-            showToast("선택한 일지가 삭제되었습니다.");
-        }
-
-        function clearJournalHistory() {
-            if (confirm("정말로 모든 명상 기록과 통계를 초기화하시겠습니까?")) {
-                localStorage.removeItem('prana_journal');
-                localStorage.removeItem('prana_total_mins');
-                localStorage.removeItem('prana_total_sessions');
-                loadJournalData();
-                showToast("기록이 초기화되었습니다.");
-            }
-        }
-
+        /* ==========================================================================
+           TAB SWITCHING & TOAST HELPER
+           ========================================================================== */
         function switchTab(tabId) {
             const tabs = ['timer', 'chakra', 'journal'];
             tabs.forEach(t => {
@@ -1217,8 +1244,10 @@
 
         window.onload = function() {
             updateTimerDisplay();
+            resizeCanvas();
+            drawNadisCanvas();
+            renderEmotionSelectors();
             loadJournalData();
-            selectMood('평온함 😌');
         };
     </script>
 </body>
