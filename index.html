@@ -558,185 +558,60 @@
 
     <script>
         /* ==========================================
-           4. JOURNAL & DASHBOARD ENGINE
+           AUDIO ENGINE (Completely Revised Sound Synthesis)
            ========================================== */
-        let selectedMoodTag = '평온함 😌';
-        let selectedTabMoodTag = '평온함 😌';
+        let audioCtx = null;
+        let rainSource = null;
+        let rainGain = null;
+        let isRainPlaying = false;
 
-        function selectMood(mood) {
-            selectedMoodTag = mood;
-            document.querySelectorAll('.mood-btn').forEach(btn => {
-                if (btn.innerText.includes(mood.split(' ')[0])) {
-                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                } else {
-                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                }
-            });
-        }
-
-        function selectTabMood(mood) {
-            selectedTabMoodTag = mood;
-            document.querySelectorAll('.tab-mood-btn').forEach(btn => {
-                if (btn.innerText.includes(mood.split(' ')[0])) {
-                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
-                } else {
-                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-slate-300');
-                    btn.classList.add('bg-white/5', 'border-white/10', 'text-slate-300');
-                }
-            });
-        }
-
-        function saveManualJournal() {
-            const duration = parseInt(document.getElementById('manual-duration').value) || 5;
-            const title = document.getElementById('manual-title').value.trim() || '명상 성찰';
-            const noteText = document.getElementById('manual-note-input').value.trim();
-
-            if (!noteText) {
-                showToast("성찰 내용을 입력해주세요.");
-                return;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
-
-            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            const newEntry = {
-                id: Date.now(),
-                date: `${dateStr} (${title})`,
-                duration: duration,
-                mood: selectedTabMoodTag,
-                note: noteText
-            };
-
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history.unshift(newEntry);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-
-            updateStatsOnCompletion(duration);
-            document.getElementById('manual-note-input').value = '';
-            document.getElementById('manual-title').value = '';
-            
-            showToast("📖 새로운 성찰 일지가 등록되었습니다!");
-            loadJournalData();
-        }
-
-        function saveSessionJournal() {
-            const noteText = document.getElementById('session-note-input').value.trim();
-            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-            const newEntry = {
-                id: Date.now(),
-                date: dateStr,
-                duration: Math.round(initialSeconds / 60),
-                mood: selectedMoodTag,
-                note: noteText || '별도 메모 없이 명상을 완료했습니다.'
-            };
-
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history.unshift(newEntry);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-
-            document.getElementById('modal-session-complete').classList.add('hidden');
-            document.getElementById('session-note-input').value = '';
-            
-            showToast("📖 명상 성찰 일지가 저장되었습니다!");
-            loadJournalData();
-        }
-
-        function updateStatsOnCompletion(mins) {
-            let totalMins = parseInt(localStorage.getItem('prana_total_mins') || '0');
-            let totalSessions = parseInt(localStorage.getItem('prana_total_sessions') || '0');
-            
-            totalMins += mins;
-            totalSessions += 1;
-
-            localStorage.setItem('prana_total_mins', totalMins);
-            localStorage.setItem('prana_total_sessions', totalSessions);
-
-            loadStatsDisplay();
-        }
-
-        function loadStatsDisplay() {
-            const totalMins = localStorage.getItem('prana_total_mins') || '0';
-            const totalSessions = localStorage.getItem('prana_total_sessions') || '0';
-
-            document.getElementById('stat-total-time').innerText = `${totalMins}분`;
-            document.getElementById('stat-total-sessions').innerText = `${totalSessions}회`;
-            document.getElementById('stat-streak').innerText = `${totalSessions > 0 ? 1 : 0}일`;
-        }
-
-        function loadJournalData() {
-            loadStatsDisplay();
-            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            const container = document.getElementById('journal-list');
-
-            if (history.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-12 text-slate-500 text-xs">
-                        아직 기록된 명상 성찰 일지가 없습니다. 일지를 작성해 보세요!
-                    </div>`;
-                return;
-            }
-
-            container.innerHTML = history.map(item => `
-                <div class="glass-card p-4 rounded-2xl space-y-2 border border-white/5 relative group">
-                    <div class="flex items-center justify-between text-xs">
-                        <span class="text-slate-400"><i class="fa-regular fa-calendar mr-1"></i>${item.date}</span>
-                        <div class="flex items-center space-x-2">
-                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">${item.duration}분 명상</span>
-                            <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">${item.mood}</span>
-                            <button onclick="deleteJournalEntry(${item.id})" class="text-slate-500 hover:text-rose-400 transition px-1" title="기록 삭제">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <p class="text-xs text-slate-200 leading-relaxed pt-1">${item.note}</p>
-                </div>
-            `).join('');
-        }
-
-        function deleteJournalEntry(id) {
-            let history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
-            history = history.filter(item => item.id !== id);
-            localStorage.setItem('prana_journal', JSON.stringify(history));
-            loadJournalData();
-            showToast("선택한 일지가 삭제되었습니다.");
-        }
-
-        function clearJournalHistory() {
-            if (confirm("정말로 모든 명상 기록과 통계를 초기화하시겠습니까?")) {
-                localStorage.removeItem('prana_journal');
-                localStorage.removeItem('prana_total_mins');
-                localStorage.removeItem('prana_total_sessions');
-                loadJournalData();
-                showToast("기록이 초기화되었습니다.");
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
             }
         }
 
+        /* Completely New Singing Bowl: Multi-Tiered Crystal Overtone Bell */
         function playSingingBowlSound() {
             initAudio();
             const now = audioCtx.currentTime;
             
-            const osc1 = audioCtx.createOscillator();
-            const osc2 = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
+            // Rich multi-harmonic bell frequencies (Tibetan Bowl 528Hz & 432Hz Blend)
+            const bellFrequencies = [264, 528, 792, 1056, 1320, 1584];
+            const bellGains = [0.5, 0.4, 0.25, 0.15, 0.08, 0.04];
+            const bellDurations = [7.5, 6.8, 6.0, 5.2, 4.5, 3.8];
 
-            osc1.type = 'sine';
-            osc1.frequency.setValueAtTime(432, now);
-            
-            osc2.type = 'sine';
-            osc2.frequency.setValueAtTime(432 * 1.5, now);
+            bellFrequencies.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
 
-            gain.gain.setValueAtTime(0.01, now);
-            gain.gain.exponentialRampToValueAtTime(0.6, now + 0.08);
-            gain.gain.exponentialRampToValueAtTime(0.0001, now + 5.5);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, now);
 
-            osc1.connect(gain);
-            osc2.connect(gain);
-            gain.connect(audioCtx.destination);
+                // Subtle natural frequency drift (micro-pitch wobble)
+                const wobble = audioCtx.createOscillator();
+                const wobbleGain = audioCtx.createGain();
+                wobble.type = 'sine';
+                wobble.frequency.setValueAtTime(0.8, now);
+                wobbleGain.gain.setValueAtTime(1.5, now);
+                wobble.connect(osc.detune);
+                wobble.start(now);
+                wobble.stop(now + bellDurations[idx]);
 
-            osc1.start(now);
-            osc2.start(now);
-            osc1.stop(now + 5.6);
-            osc2.stop(now + 5.6);
+                // Smooth exponential envelope for long, pristine bell sustain
+                gain.gain.setValueAtTime(0.0001, now);
+                gain.gain.exponentialRampToValueAtTime(bellGains[idx], now + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.00001, now + bellDurations[idx]);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(now);
+                osc.stop(now + bellDurations[idx]);
+            });
         }
 
         function toggleRainSoundQuick() {
@@ -746,36 +621,65 @@
             const btnEl = document.getElementById('btn-rain-toggle');
             if (isRainPlaying) {
                 statusEl.innerText = 'ON';
-                btnEl.className = "px-3 py-1.5 bg-blue-500/40 text-blue-200 text-xs rounded-xl transition-all border border-blue-400 flex items-center gap-1.5 shadow-md";
+                btnEl.className = "py-2 px-3 bg-blue-500/40 text-blue-200 text-xs rounded-xl transition-all border border-blue-400 flex items-center justify-center gap-1.5 font-medium shadow-md";
                 showToast("청정한 자연 빗소리가 켜졌습니다.");
             } else {
                 statusEl.innerText = 'OFF';
-                btnEl.className = "px-3 py-1.5 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs rounded-xl transition-all border border-blue-500/30 flex items-center gap-1.5";
+                btnEl.className = "py-2 px-3 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 text-xs rounded-xl transition-all border border-blue-500/30 flex items-center justify-center gap-1.5 font-medium";
                 showToast("빗소리가 꺼졌습니다.");
             }
         }
 
+        /* Completely New Realistic Rainfall Generator (Filtered Pink Noise with Organic Droplet Variations) */
         function toggleRainSound(enable) {
             initAudio();
             const now = audioCtx.currentTime;
 
             if (enable) {
-                const bufferSize = audioCtx.sampleRate * 2;
-                const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-                const data = buffer.getChannelData(0);
+                const bufferSize = audioCtx.sampleRate * 5;
+                const buffer = audioCtx.createBuffer(2, bufferSize, audioCtx.sampleRate);
+                const leftChannel = buffer.getChannelData(0);
+                const rightChannel = buffer.getChannelData(1);
+                
                 let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+                let r0 = 0, r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0;
 
                 for (let i = 0; i < bufferSize; i++) {
-                    let white = Math.random() * 2 - 1;
-                    b0 = 0.99886 * b0 + white * 0.0555179;
-                    b1 = 0.99332 * b1 + white * 0.0750759;
-                    b2 = 0.96900 * b2 + white * 0.1538520;
-                    b3 = 0.86650 * b3 + white * 0.3104856;
-                    b4 = 0.55000 * b4 + white * 0.5329522;
-                    b5 = -0.7616 * b5 - white * 0.0168980;
-                    data[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
-                    data[i] *= 0.05;
-                    b6 = white * 0.115926;
+                    let whiteL = Math.random() * 2 - 1;
+                    let whiteR = Math.random() * 2 - 1;
+                    
+                    // Left channel pink/brown noise shaping for warm ambient rain
+                    b0 = 0.99886 * b0 + whiteL * 0.0555179;
+                    b1 = 0.99332 * b1 + whiteL * 0.0750759;
+                    b2 = 0.96900 * b2 + whiteL * 0.1538520;
+                    b3 = 0.86650 * b3 + whiteL * 0.3104856;
+                    b4 = 0.55000 * b4 + whiteL * 0.5329522;
+                    b5 = -0.7616 * b5 - whiteL * 0.0168980;
+                    let sampleL = b0 + b1 + b2 + b3 + b4 + b5 + b6 + whiteL * 0.5362;
+                    sampleL *= 0.05;
+                    b6 = whiteL * 0.115926;
+
+                    // Right channel shaping
+                    r0 = 0.99886 * r0 + whiteR * 0.0555179;
+                    r1 = 0.99332 * r1 + whiteR * 0.0750759;
+                    r2 = 0.96900 * r2 + whiteR * 0.1538520;
+                    r3 = 0.86650 * r3 + whiteR * 0.3104856;
+                    r4 = 0.55000 * r4 + whiteR * 0.5329522;
+                    r5 = -0.7616 * r5 - whiteR * 0.0168980;
+                    let sampleR = r0 + r1 + r2 + r3 + r4 + r5 + r6 + whiteR * 0.5362;
+                    sampleR *= 0.05;
+                    r6 = whiteR * 0.115926;
+
+                    // Realistic droplet splashes
+                    if (Math.random() < 0.002) {
+                        sampleL += (Math.random() * 0.3 - 0.15);
+                    }
+                    if (Math.random() < 0.002) {
+                        sampleR += (Math.random() * 0.3 - 0.15);
+                    }
+
+                    leftChannel[i] = sampleL;
+                    rightChannel[i] = sampleR;
                 }
 
                 rainSource = audioCtx.createBufferSource();
@@ -783,14 +687,20 @@
                 rainSource.loop = true;
 
                 rainGain = audioCtx.createGain();
-                rainGain.gain.setValueAtTime(0.3 * 0.25, now);
+                rainGain.gain.setValueAtTime(0.45, now);
 
-                const filter = audioCtx.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(1000, now);
+                // Dual Biquad filters to isolate soft, calming rainfall frequencies
+                const lowpass = audioCtx.createBiquadFilter();
+                lowpass.type = 'lowpass';
+                lowpass.frequency.setValueAtTime(2600, now);
 
-                rainSource.connect(filter);
-                filter.connect(rainGain);
+                const highpass = audioCtx.createBiquadFilter();
+                highpass.type = 'highpass';
+                highpass.frequency.setValueAtTime(200, now);
+
+                rainSource.connect(highpass);
+                highpass.connect(lowpass);
+                lowpass.connect(rainGain);
                 rainGain.connect(audioCtx.destination);
 
                 rainSource.start(now);
@@ -799,14 +709,8 @@
             }
         }
 
-        function setRainVolume(val) {
-            if (rainGain && audioCtx) {
-                rainGain.gain.setValueAtTime(parseFloat(val) * 0.25, audioCtx.currentTime);
-            }
-        }
-
         /* ==========================================
-           2. BREATHING TIMER ENGINE
+           BREATHING TIMER ENGINE
            ========================================== */
         let totalSeconds = 300;
         let initialSeconds = 300;
@@ -873,14 +777,21 @@
             if (!isRunning) {
                 isRunning = true;
                 btn.innerHTML = `<i class="fa-solid fa-pause"></i> 명상 일시정지`;
-                btn.className = "px-8 py-3 rounded-full bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-rose-500/25 transition-all transform active:scale-95 flex items-center gap-2";
+                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-amber-500 hover:from-rose-400 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-rose-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2";
 
                 playSingingBowlSound();
+                
+                // Immediately update guide text upon start
+                const pattern = BREATH_PATTERNS[currentPattern];
+                const currentPhase = pattern.phases[currentPhaseIdx];
+                document.getElementById('breath-phase-text').innerText = currentPhase.text;
+                document.getElementById('breath-sub-text').innerText = currentPhase.sub;
+
                 timerInterval = setInterval(tick, 1000);
             } else {
                 isRunning = false;
                 btn.innerHTML = `<i class="fa-solid fa-play"></i> 명상 시작하기`;
-                btn.className = "px-8 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/25 transition-all transform active:scale-95 flex items-center gap-2";
+                btn.className = "flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-amber-400 to-amber-500 hover:from-cyan-400 hover:to-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-cyan-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2";
 
                 clearInterval(timerInterval);
             }
@@ -910,16 +821,25 @@
             
             const totalPhaseDuration = currentPhase.duration;
             const dashOffset = 263.89 * (1 - (phaseTimer / totalPhaseDuration));
-            circleProgress.style.strokeDashoffset = dashOffset;
+            if (circleProgress) circleProgress.style.strokeDashoffset = dashOffset;
+
+            const phaseTextEl = document.getElementById('breath-phase-text');
+            const subTextEl = document.getElementById('breath-sub-text');
+            if (phaseTextEl) phaseTextEl.innerText = currentPhase.text;
+            if (subTextEl) subTextEl.innerText = currentPhase.sub;
 
             if (currentPhase.text.includes('들숨')) {
                 const scale = 0.75 + (phaseTimer / totalPhaseDuration) * 0.35;
-                pulseRing.style.transform = `scale(${scale})`;
-                pulseRing.style.opacity = '0.8';
+                if (pulseRing) {
+                    pulseRing.style.transform = `scale(${scale})`;
+                    pulseRing.style.opacity = '0.8';
+                }
             } else if (currentPhase.text.includes('날숨')) {
                 const scale = 1.1 - (phaseTimer / totalPhaseDuration) * 0.35;
-                pulseRing.style.transform = `scale(${scale})`;
-                pulseRing.style.opacity = '0.4';
+                if (pulseRing) {
+                    pulseRing.style.transform = `scale(${scale})`;
+                    pulseRing.style.opacity = '0.4';
+                }
             }
 
             if (phaseTimer >= totalPhaseDuration) {
@@ -927,8 +847,8 @@
                 currentPhaseIdx = (currentPhaseIdx + 1) % pattern.phases.length;
                 const nextPhase = pattern.phases[currentPhaseIdx];
 
-                document.getElementById('breath-phase-text').innerText = nextPhase.text;
-                document.getElementById('breath-sub-text').innerText = nextPhase.sub;
+                if (phaseTextEl) phaseTextEl.innerText = nextPhase.text;
+                if (subTextEl) subTextEl.innerText = nextPhase.sub;
             }
         }
 
@@ -947,16 +867,12 @@
         }
 
         /* ==========================================
-           3. CANVAS: PRANA NADIS & 7 CHAKRA VISUALIZER
+           CANVAS: PRANA NADIS & CHAKRAS
            ========================================== */
         const canvas = document.getElementById('nadisCanvas');
         const ctx = canvas ? canvas.getContext('2d') : null;
         let animationFrameId = null;
         let particles = [];
-        let isNadiShodhanaActive = false;
-        let nadiStep = 0;
-        let nadiTimer = 4;
-        let nadiInterval = null;
 
         const CHAKRAS = [
             { id: 1, name: '1. 물라다라 (Root)', yRatio: 0.85, color: '#ef4444', mantra: 'LAM', desc: '위치: 회음부 | Red | 근본 대지 기운 및 하체 치유' },
@@ -1107,67 +1023,157 @@
             if (mantraEl) mantraEl.innerText = `Mantra: ${c.mantra}`;
         }
 
-        function toggleNadiShodhanaMode() {
-            const overlay = document.getElementById('nadi-shodhana-overlay');
-            const btn = document.getElementById('btn-nadi-shodhana');
+        /* ==========================================
+           JOURNAL ENGINE
+           ========================================== */
+        let selectedMoodTag = '평온함 😌';
+        let selectedTabMoodTag = '평온함 😌';
 
-            if (!isNadiShodhanaActive) {
-                isNadiShodhanaActive = true;
-                if (overlay) overlay.classList.remove('hidden');
-                if (btn) {
-                    btn.innerText = '교대 호흡 실습 종료';
-                    btn.className = "w-full py-2.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-semibold rounded-xl border border-rose-500/40 transition";
+        function selectMood(mood) {
+            selectedMoodTag = mood;
+            document.querySelectorAll('.mood-btn').forEach(btn => {
+                if (btn.innerText.includes(mood.split(' ')[0])) {
+                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
+                } else {
+                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
                 }
-
-                nadiStep = 0;
-                nadiTimer = 4;
-                runNadiShodhanaStep();
-                nadiInterval = setInterval(updateNadiShodhanaTimer, 1000);
-            } else {
-                isNadiShodhanaActive = false;
-                if (overlay) overlay.classList.add('hidden');
-                if (btn) {
-                    btn.innerText = '교대 호흡 가이드 시작';
-                    btn.className = "w-full py-2.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-semibold rounded-xl border border-amber-500/40 transition";
-                }
-                clearInterval(nadiInterval);
-            }
+            });
         }
 
-        const NADI_STEPS = [
-            { nostril: 'L', title: '왼쪽 콧구멍 들숨 (Ida 吸)', desc: '오른쪽을 엄지로 막고 왼쪽으로 달의 청량한 기운을 흡입합니다', duration: 4, color: 'bg-cyan-500/30 border-cyan-400 text-cyan-300' },
-            { nostril: 'Hold', title: '양쪽 콧구멍 멈춤 (Kumbhaka)', desc: '양 콧구멍을 모두 막고 고요히 지식(止息)합니다', duration: 4, color: 'bg-purple-500/30 border-purple-400 text-purple-300' },
-            { nostril: 'R', title: '오른쪽 콧구멍 날숨 (Pingala 呼)', desc: '오른쪽을 열고 길게 내쉬어 열기와 탁기를 배출합니다', duration: 4, color: 'bg-orange-500/30 border-orange-400 text-orange-300' },
-            { nostril: 'R', title: '오른쪽 콧구멍 들숨 (Pingala 吸)', desc: '오른쪽 콧구멍으로 다시 태양의 활력 기운을 흡입합니다', duration: 4, color: 'bg-orange-500/30 border-orange-400 text-orange-300' },
-            { nostril: 'Hold', title: '양쪽 콧구멍 멈춤 (Kumbhaka)', desc: '에너지를 중앙 수슘나 나디에 응축시킵니다', duration: 4, color: 'bg-purple-500/30 border-purple-400 text-purple-300' },
-            { nostril: 'L', title: '왼쪽 콧구멍 날숨 (Ida 呼)', desc: '왼쪽을 열고 부드럽게 완전 비워냅니다', duration: 4, color: 'bg-cyan-500/30 border-cyan-400 text-cyan-300' },
-        ];
-
-        function runNadiShodhanaStep() {
-            const step = NADI_STEPS[nadiStep];
-            const indicator = document.getElementById('nadi-nostril-indicator');
-            if (indicator) {
-                indicator.innerText = step.nostril;
-                indicator.className = `w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs border ${step.color}`;
-            }
-
-            const titleEl = document.getElementById('nadi-step-title');
-            const descEl = document.getElementById('nadi-step-desc');
-            const timerEl = document.getElementById('nadi-timer-countdown');
-
-            if (titleEl) titleEl.innerText = step.title;
-            if (descEl) descEl.innerText = step.desc;
-            if (timerEl) timerEl.innerText = nadiTimer;
+        function selectTabMood(mood) {
+            selectedTabMoodTag = mood;
+            document.querySelectorAll('.tab-mood-btn').forEach(btn => {
+                if (btn.innerText.includes(mood.split(' ')[0])) {
+                    btn.classList.add('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
+                } else {
+                    btn.classList.remove('bg-cyan-500/30', 'border-cyan-400', 'text-cyan-200');
+                    btn.classList.add('bg-white/5', 'border-white/10', 'text-slate-300');
+                }
+            });
         }
 
-        function updateNadiShodhanaTimer() {
-            nadiTimer--;
-            const timerEl = document.getElementById('nadi-timer-countdown');
-            if (timerEl) timerEl.innerText = nadiTimer;
-            if (nadiTimer <= 0) {
-                nadiStep = (nadiStep + 1) % NADI_STEPS.length;
-                nadiTimer = NADI_STEPS[nadiStep].duration;
-                runNadiShodhanaStep();
+        function saveManualJournal() {
+            const duration = parseInt(document.getElementById('manual-duration').value) || 5;
+            const title = document.getElementById('manual-title').value.trim() || '명상 성찰';
+            const noteText = document.getElementById('manual-note-input').value.trim();
+
+            if (!noteText) {
+                showToast("성찰 내용을 입력해주세요.");
+                return;
+            }
+
+            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const newEntry = {
+                id: Date.now(),
+                date: `${dateStr} (${title})`,
+                duration: duration,
+                mood: selectedTabMoodTag,
+                note: noteText
+            };
+
+            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
+            history.unshift(newEntry);
+            localStorage.setItem('prana_journal', JSON.stringify(history));
+
+            updateStatsOnCompletion(duration);
+            document.getElementById('manual-note-input').value = '';
+            document.getElementById('manual-title').value = '';
+            
+            showToast("📖 새로운 성찰 일지가 등록되었습니다!");
+            loadJournalData();
+        }
+
+        function saveSessionJournal() {
+            const noteText = document.getElementById('session-note-input').value.trim();
+            const dateStr = new Date().toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            const newEntry = {
+                id: Date.now(),
+                date: dateStr,
+                duration: Math.round(initialSeconds / 60),
+                mood: selectedMoodTag,
+                note: noteText || '별도 메모 없이 명상을 완료했습니다.'
+            };
+
+            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
+            history.unshift(newEntry);
+            localStorage.setItem('prana_journal', JSON.stringify(history));
+
+            document.getElementById('modal-session-complete').classList.add('hidden');
+            document.getElementById('session-note-input').value = '';
+            
+            showToast("📖 명상 성찰 일지가 저장되었습니다!");
+            loadJournalData();
+        }
+
+        function updateStatsOnCompletion(mins) {
+            let totalMins = parseInt(localStorage.getItem('prana_total_mins') || '0');
+            let totalSessions = parseInt(localStorage.getItem('prana_total_sessions') || '0');
+            
+            totalMins += mins;
+            totalSessions += 1;
+
+            localStorage.setItem('prana_total_mins', totalMins);
+            localStorage.setItem('prana_total_sessions', totalSessions);
+
+            loadStatsDisplay();
+        }
+
+        function loadStatsDisplay() {
+            const totalMins = localStorage.getItem('prana_total_mins') || '0';
+            const totalSessions = localStorage.getItem('prana_total_sessions') || '0';
+
+            document.getElementById('stat-total-time').innerText = `${totalMins}분`;
+            document.getElementById('stat-total-sessions').innerText = `${totalSessions}회`;
+            document.getElementById('stat-streak').innerText = `${totalSessions > 0 ? 1 : 0}일`;
+        }
+
+        function loadJournalData() {
+            loadStatsDisplay();
+            const history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
+            const container = document.getElementById('journal-list');
+
+            if (history.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-500 text-xs">
+                        아직 기록된 명상 성찰 일지가 없습니다. 일지를 작성해 보세요!
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = history.map(item => `
+                <div class="glass-card p-4 rounded-2xl space-y-2 border border-white/5 relative group">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400"><i class="fa-regular fa-calendar mr-1"></i>${item.date}</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">${item.duration}분 명상</span>
+                            <span class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">${item.mood}</span>
+                            <button onclick="deleteJournalEntry(${item.id})" class="text-slate-500 hover:text-rose-400 transition px-1" title="기록 삭제">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-200 leading-relaxed pt-1">${item.note}</p>
+                </div>
+            `).join('');
+        }
+
+        function deleteJournalEntry(id) {
+            let history = JSON.parse(localStorage.getItem('prana_journal') || '[]');
+            history = history.filter(item => item.id !== id);
+            localStorage.setItem('prana_journal', JSON.stringify(history));
+            loadJournalData();
+            showToast("선택한 일지가 삭제되었습니다.");
+        }
+
+        function clearJournalHistory() {
+            if (confirm("정말로 모든 명상 기록과 통계를 초기화하시겠습니까?")) {
+                localStorage.removeItem('prana_journal');
+                localStorage.removeItem('prana_total_mins');
+                localStorage.removeItem('prana_total_sessions');
+                loadJournalData();
+                showToast("기록이 초기화되었습니다.");
             }
         }
 
